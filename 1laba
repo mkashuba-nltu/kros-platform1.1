@@ -1,0 +1,39 @@
+import 'dart:math';
+
+void main(List<String> arguments) {
+  double y = 4.6 * 7;
+  double z = 36.6 / 7;
+  double xStart = 1.23 * 7;
+  double xEnd = xStart + 10;
+  double stepX = 1;
+
+  print("Табулювання функції a(x,y,z,b):");
+  print("x\t\ta(x,y,z,b)");
+
+  for (double x = xStart; x <= xEnd; x += stepX) {
+    var b = ((double xx, double yy, double zz) {
+      return 1 -
+          ((xx + yy) / (pow(zz.abs(), 0.34))) +
+          (pow(yy, 2) / factorial(3)) +
+          (pow(zz, 3) / factorial(5)) +
+          (exp(xx - yy) / (zz + yy));
+    })(x, y, z);
+
+    double aFunc(double xx, double yy, double zz, double bb) {
+      double inner(double val) => log(val.abs());
+
+      double expr1 = (yy - sqrt((xx * xx - bb).abs()));
+      double expr2 = (yy - (xx * xx) / (zz + 4 * yy * yy));
+      return pow(inner(expr1 * expr2), 2 / 3).toDouble();
+    }
+
+    double a = aFunc(x, y, z, b);
+
+    print("${x.toStringAsFixed(2)}\t\t${a.toStringAsFixed(6)}");
+  }
+}
+
+int factorial(int n) {
+  if (n <= 1) return 1;
+  return n * factorial(n - 1);
+}
